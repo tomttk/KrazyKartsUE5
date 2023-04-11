@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "GoKart.h"
 
 #include "Components/InputComponent.h"
@@ -42,20 +41,21 @@ void AGoKart::Tick(float DeltaTime)
 
 FVector AGoKart::GetAirResistance()
 {
-	return - Velocity.GetSafeNormal() * Velocity.SizeSquared() * DragCoefficient;
+	return -Velocity.GetSafeNormal() * Velocity.SizeSquared() * DragCoefficient;
 }
 
 FVector AGoKart::GetRollingResistance()
 {
-	float AccelerationDueToGravity = -GetWorld()->GetDefaultGravityZ();
+	float AccelerationDueToGravity = -GetWorld()->GetGravityZ() / 100;
 	float NormalForce = Mass * AccelerationDueToGravity;
 	return -Velocity.GetSafeNormal() * RollingResistanceCoefficient * NormalForce;
 }
 
 void AGoKart::ApplyRotation(float DeltaTime)
 {
-	float RotationAngle = MaxDegreesPerSecond * DeltaTime * SteeringThrow;
-	FQuat RotationDelta(GetActorUpVector(), FMath::DegreesToRadians(RotationAngle));
+	float DeltaLocation = FVector::DotProduct(GetActorForwardVector(), Velocity) * DeltaTime;
+	float RotationAngle =  DeltaLocation / MinimumTurningRadius * SteeringThrow;
+	FQuat RotationDelta(GetActorUpVector(), RotationAngle);
 
 	Velocity = RotationDelta.RotateVector(Velocity);
 

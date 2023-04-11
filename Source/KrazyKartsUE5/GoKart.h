@@ -19,7 +19,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -33,24 +33,24 @@ private:
 	void ApplyRotation(float DeltaTime);
 
 	void UpdateLocationFromVelocity(float DeltaTime);
-	
-	//The mass of the car (kg)
+
+	// The mass of the car (kg).
 	UPROPERTY(EditAnywhere)
 		float Mass = 1000;
 
-	//The force applied to the car when the throttle is fully down (N)
+	// The force applied to the car when the throttle is fully down (N).
 	UPROPERTY(EditAnywhere)
 		float MaxDrivingForce = 10000;
 
-	//The number of degrees rotated per second at full control throw (degrees/s)
+	// Minimum radius of the car turinig circle at full lock (m).
 	UPROPERTY(EditAnywhere)
-		float MaxDegreesPerSecond = 90;
+		float MinimumTurningRadius = 10;
 
-	//Higher means more drag
+	// Higher means more drag.
 	UPROPERTY(EditAnywhere)
 		float DragCoefficient = 16;
 
-	//Higher means more rolling resistance
+	// Higher means more rolling resistance.
 	UPROPERTY(EditAnywhere)
 		float RollingResistanceCoefficient = 0.015;
 
