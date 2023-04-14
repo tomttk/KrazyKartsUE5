@@ -67,14 +67,18 @@ private:
 		void Server_MoveRight_Implementation(float Value);
 		bool Server_MoveRight_Validate(float Value);
 
-	FVector Velocity;
+	UPROPERTY(Replicated)
+		FVector Velocity;
 
-	UPROPERTY(ReplicatedUsing=OnRep_ReplicatedTransform)
+	UPROPERTY(ReplicatedUsing = OnRep_ReplicatedTransform)
 		FTransform ReplicatedTransform;
 
 	UFUNCTION()
-	void OnRep_ReplicatedTransform();
+		void OnRep_ReplicatedTransform();
 
+	UPROPERTY(Replicated)
 	float Throttle;
+
+	UPROPERTY(Replicated)
 	float SteeringThrow;
 };
