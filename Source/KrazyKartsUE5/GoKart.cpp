@@ -6,6 +6,7 @@
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
 #include "Net/UnrealNetwork.h"
+#include "GameFrameWork/GameState.h"
 
 // Sets default values
 AGoKart::AGoKart()
@@ -104,7 +105,7 @@ FGoKartMove AGoKart::CreateMove(float DeltaTime)
 	Move.DeltaTime = DeltaTime;
 	Move.SteeringThrow = SteeringThrow;
 	Move.Throttle = Throttle;
-	Move.Time = GetWorld()->TimeSeconds;
+	Move.Time = GetWorld()->GetGameState()->GetServerWorldTimeSeconds();
 
 	return Move;
 }
