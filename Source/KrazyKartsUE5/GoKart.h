@@ -91,23 +91,17 @@ private:
 	void MoveRight(float Value);
 
 	UFUNCTION(Server, Reliable, WithValidation)
-		void Server_MoveForward(float Value);
-		void Server_MoveForward_Implementation(float Value);
-		bool Server_MoveForward_Validate(float Value);
+		void Server_SendMove(FGoKartMove Move);
+		void Server_SendMove_Implementation(FGoKartMove Move);
+		bool Server_SendMove_Validate(FGoKartMove Move);
 
-	UFUNCTION(Server, Reliable, WithValidation)
-		void Server_MoveRight(float Value);
-		void Server_MoveRight_Implementation(float Value);
-		bool Server_MoveRight_Validate(float Value);
+	UPROPERTY(ReplicatedUsing = OnRep_ServerState)
+		FGoKartState ServerState;
 
-	UPROPERTY(Replicated)
-		FVector Velocity;
-
-	UPROPERTY(ReplicatedUsing = OnRep_ReplicatedTransform)
-		FTransform ReplicatedTransform;
+	FVector Velocity;
 
 	UFUNCTION()
-		void OnRep_ReplicatedTransform();
+		void OnRep_ServerState();
 
 	UPROPERTY(Replicated)
 		float Throttle;
